@@ -9,7 +9,7 @@ void alarmWorker() {
 
   int udpBytes=udpAlarm.parsePacket();
   if (udpBytes==14) {
-    greenOff(); alarmTimer=millis()+30000UL;;
+    greenOn(); yellowOn(); alarmTimer=millis()+30000UL;;
     udpAlarm.read(packetBuffer,udpBytes);
     Serial.print("Alarm Packet received: ");
     for (int n=0;n<14;n++) { Serial.print(String(packetBuffer[n],HEX)); Serial.print(" "); } Serial.println();
@@ -20,7 +20,8 @@ void alarmWorker() {
     if (slow==0 && fast==0) { redOff(); }
     else if (slow==1 && fast==0) { slowOn(); }
     else if (slow==0 && fast==1) { fastOn(); }
-    else if (slow==1 && fast==1) { fastOn(); } }
+    else if (slow==1 && fast==1) { fastOn(); }
+    greenOff(); yellowOff(); }
 
   else { for (int n=0;n<udpBytes;n++) { udpAlarm.read(); } }
 
